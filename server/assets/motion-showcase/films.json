@@ -1,0 +1,4 @@
+[
+  { "id": "cal", "title": "Cal.com", "note": "With sound effects", "seconds": 10, "aspect": "16:9" },
+  { "id": "resend-narrated", "title": "Resend", "note": "Narrated, with captions", "seconds": 11, "aspect": "16:9" }
+]

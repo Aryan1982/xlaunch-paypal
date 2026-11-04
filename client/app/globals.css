@@ -1,0 +1,234 @@
+@import "tailwindcss";
+/* `dark:` follows the site's theme toggle (data-theme), not the OS setting */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --bg: #ffffff;
+  --bg-raised: #f8f8f7;
+  --panel: #ffffff;
+  --panel-hi: #f2f2f1;
+  --line: #ebebea;
+  --line-hi: #dcdcda;
+  --fg: #1f1f1e;
+  --fg-mute: #6b6b68;
+  --fg-dim: #9d9d99;
+  --accent: #5e6ad2;
+  --accent-hi: #4852b8;
+  --accent-2: #5e6ad2;
+  --ok: #2f9e5b;
+  --warn: #b7791f;
+  --bad: #d33a3a;
+  /* landing hero */
+  --hero-fg: #15151a;
+  --hero-fg-mute: rgba(21, 21, 26, 0.68);
+  --hero-overlay: linear-gradient(rgba(255, 255, 255, 0.62), rgba(246, 248, 250, 0.82));
+  --hero-base: #dfe7ea;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e0e10;
+  --bg-raised: #131315;
+  --panel: #161618;
+  --panel-hi: #1d1d20;
+  --line: #232326;
+  --line-hi: #2f2f34;
+  --fg: #ececee;
+  --fg-mute: #9b9ba4;
+  --fg-dim: #67676f;
+  --accent: #7b86e8;
+  --accent-hi: #a3abf5;
+  --accent-2: #7b86e8;
+  --ok: #4cc27f;
+  --warn: #e0aa4a;
+  --bad: #ef6b6b;
+  --hero-fg: #ffffff;
+  --hero-fg-mute: rgba(255, 255, 255, 0.78);
+  --hero-overlay: linear-gradient(rgba(6, 12, 18, 0.42), rgba(6, 12, 18, 0.55));
+  --hero-base: #17303a;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-raised: var(--bg-raised);
+  --color-panel: var(--panel);
+  --color-panel-hi: var(--panel-hi);
+  --color-line: var(--line);
+  --color-line-hi: var(--line-hi);
+  --color-fg: var(--fg);
+  --color-mute: var(--fg-mute);
+  --color-dim: var(--fg-dim);
+  --color-accent: var(--accent);
+  --color-accent-hi: var(--accent-hi);
+  --color-accent-2: var(--accent-2);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+/* Landing hero: swap public/hero.svg for your own photo (and update the url below) to change it. */
+.hero-bg {
+  transition: background-color 0.2s;
+  background-color: var(--hero-base);
+  background-image: var(--hero-overlay), url("/hero.svg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Home page: the 2D and 3D backdrops, cross-faded by the mode switch (app/page.tsx). */
+.scene {
+  position: fixed;
+  inset: 0;
+  background-color: var(--hero-base);
+}
+.scene-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition:
+    opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scene-2d {
+  background-image: var(--hero-overlay), url("/hero.svg");
+}
+.scene-3d {
+  background-image: var(--hero-overlay), url("/hero-3d.svg");
+}
+[data-mode="2d"] .scene-3d,
+[data-mode="3d"] .scene-2d {
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+/* 3D mode warms the accent to match its dusk backdrop. */
+[data-mode="3d"] {
+  --accent: #d9694f;
+  --accent-hi: #b9533c;
+}
+:root[data-theme="dark"] [data-mode="3d"] {
+  --accent: #f08c6c;
+  --accent-hi: #f6ab92;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--panel-hi) 25%, var(--line) 37%, var(--panel-hi) 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-pop {
+  animation: pop 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: top right;
+}
+
+@keyframes dots {
+  0%, 80%, 100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+.dot-pulse > span {
+  animation: dots 1.2s infinite ease-in-out;
+}
+.dot-pulse > span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.dot-pulse > span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-hi) transparent;
+}
+
+kbd {
+  font-family: var(--font-geist-mono), monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-layer {
+    transition: none;
+    transform: none !important;
+  }
+  .rise,
+  .animate-pop,
+  .skeleton,
+  .dot-pulse > span {
+    animation: none;
+  }
+}
+
+/* Theme switch: view-transition cross-fade, with a colour-ease fallback. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-fade,
+.theme-fade *,
+.theme-fade *::before,
+.theme-fade *::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease,
+    box-shadow 0.35s ease !important;
+}

@@ -1,0 +1,35 @@
+{
+  "name": "studio-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "stills": "node scripts/stills.mjs",
+    "render": "node scripts/render.mjs",
+    "voice": "node scripts/voice.mjs"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^9.8.1",
+    "@remotion/bundler": "^4.0.535",
+    "@remotion/cli": "^4.0.535",
+    "@remotion/google-fonts": "^4.0.535",
+    "@remotion/layout-utils": "^4.0.535",
+    "@remotion/media": "^4.0.535",
+    "@remotion/motion-blur": "^4.0.535",
+    "@remotion/noise": "^4.0.535",
+    "@remotion/paths": "^4.0.535",
+    "@remotion/renderer": "^4.0.535",
+    "@remotion/shapes": "^4.0.535",
+    "@remotion/three": "^4.0.535",
+    "@remotion/transitions": "^4.0.535",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.535",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/three": "^0.186.0",
+    "typescript": "^7.0.2"
+  }
+}

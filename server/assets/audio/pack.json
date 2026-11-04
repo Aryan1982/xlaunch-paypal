@@ -1,0 +1,1107 @@
+{
+  "items": [
+    {
+      "id": "icon-pop",
+      "kind": "sfx",
+      "file": "sfx/icon-pop.mp3",
+      "description": "Round pitched pop, a logo icon or tile scaling in",
+      "tags": [
+        "logo",
+        "icon",
+        "pop"
+      ],
+      "group": "logo",
+      "durationSec": 0.21,
+      "peakDb": -8.9,
+      "rmsDb": -22.3
+    },
+    {
+      "id": "letter-click-single",
+      "kind": "sfx",
+      "file": "sfx/letter-click-single.mp3",
+      "description": "Tiny bright click, one letter or character landing",
+      "tags": [
+        "logo",
+        "letter",
+        "click",
+        "single"
+      ],
+      "group": "logo",
+      "durationSec": 0.13,
+      "peakDb": -9.8,
+      "rmsDb": -27.8
+    },
+    {
+      "id": "letter-clicks-sequence-7",
+      "kind": "sfx",
+      "file": "sfx/letter-clicks-sequence-7.mp3",
+      "description": "7 rising clicks ~2.6 frames apart, a wordmark snapping in letter by letter",
+      "tags": [
+        "logo",
+        "letter",
+        "clicks",
+        "sequence"
+      ],
+      "group": "logo",
+      "durationSec": 0.65,
+      "peakDb": -9,
+      "rmsDb": -29.9
+    },
+    {
+      "id": "light-sweep-sparkle",
+      "kind": "sfx",
+      "file": "sfx/light-sweep-sparkle.mp3",
+      "description": "Quick high sparkle run, a light sweep or shine over text",
+      "tags": [
+        "logo",
+        "light",
+        "sweep",
+        "sparkle"
+      ],
+      "group": "logo",
+      "durationSec": 1.1,
+      "peakDb": -8.9,
+      "rmsDb": -24
+    },
+    {
+      "id": "logo-build-riser",
+      "kind": "sfx",
+      "file": "sfx/logo-build-riser.mp3",
+      "description": "Soft filtered-noise riser, ~1 s, building into a reveal",
+      "tags": [
+        "logo",
+        "build",
+        "riser"
+      ],
+      "group": "logo",
+      "durationSec": 1.1,
+      "peakDb": -7.5,
+      "rmsDb": -25
+    },
+    {
+      "id": "logo-fragment-shimmer",
+      "kind": "sfx",
+      "file": "sfx/logo-fragment-shimmer.mp3",
+      "description": "Dozens of tiny glassy plinks over ~1.2 s, under fragments flying together",
+      "tags": [
+        "logo",
+        "fragment",
+        "shimmer"
+      ],
+      "group": "logo",
+      "durationSec": 1.65,
+      "peakDb": -8.9,
+      "rmsDb": -24.3
+    },
+    {
+      "id": "logo-resolve-hit",
+      "kind": "sfx",
+      "file": "sfx/logo-resolve-hit.mp3",
+      "description": "Sub drop plus two-note bell, the logo complete",
+      "tags": [
+        "logo",
+        "resolve",
+        "hit"
+      ],
+      "group": "logo",
+      "durationSec": 3.53,
+      "peakDb": -9,
+      "rmsDb": -27.9
+    },
+    {
+      "id": "whoosh-long-object-swing",
+      "kind": "sfx",
+      "file": "sfx/whoosh-long-object-swing.mp3",
+      "description": "Slow 0.6 s swish, an object rotating or swinging",
+      "tags": [
+        "transitions",
+        "whoosh",
+        "long",
+        "object",
+        "swing"
+      ],
+      "group": "transitions",
+      "durationSec": 0.68,
+      "peakDb": -8.5,
+      "rmsDb": -22.8
+    },
+    {
+      "id": "whoosh-medium-zoom-through",
+      "kind": "sfx",
+      "file": "sfx/whoosh-medium-zoom-through.mp3",
+      "description": "Fuller 0.45 s whoosh, a zoom-through, push or change into a dark scene",
+      "tags": [
+        "transitions",
+        "whoosh",
+        "medium",
+        "zoom",
+        "through"
+      ],
+      "group": "transitions",
+      "durationSec": 0.52,
+      "peakDb": -7.2,
+      "rmsDb": -22.4
+    },
+    {
+      "id": "whoosh-short-left-to-right",
+      "kind": "sfx",
+      "file": "sfx/whoosh-short-left-to-right.mp3",
+      "description": "0.32 s air whoosh panned left to right, whip pans and fast slides",
+      "tags": [
+        "transitions",
+        "whoosh",
+        "short",
+        "left",
+        "right"
+      ],
+      "group": "transitions",
+      "durationSec": 0.42,
+      "peakDb": -8.4,
+      "rmsDb": -22.5
+    },
+    {
+      "id": "whoosh-short-right-to-left",
+      "kind": "sfx",
+      "file": "sfx/whoosh-short-right-to-left.mp3",
+      "description": "0.32 s air whoosh panned right to left, whip pans the other way",
+      "tags": [
+        "transitions",
+        "whoosh",
+        "short",
+        "right",
+        "left"
+      ],
+      "group": "transitions",
+      "durationSec": 0.42,
+      "peakDb": -8.4,
+      "rmsDb": -22.5
+    },
+    {
+      "id": "whoosh-soft-underline",
+      "kind": "sfx",
+      "file": "sfx/whoosh-soft-underline.mp3",
+      "description": "Very light 0.22 s swish, an underline or accent bar drawing",
+      "tags": [
+        "transitions",
+        "whoosh",
+        "soft",
+        "underline"
+      ],
+      "group": "transitions",
+      "durationSec": 0.31,
+      "peakDb": -8.5,
+      "rmsDb": -22.7
+    },
+    {
+      "id": "button-click",
+      "kind": "sfx",
+      "file": "sfx/button-click.mp3",
+      "description": "Click plus a low pop, pressing a primary button",
+      "tags": [
+        "ui",
+        "button",
+        "click"
+      ],
+      "group": "ui",
+      "durationSec": 0.24,
+      "peakDb": -9.4,
+      "rmsDb": -27.8
+    },
+    {
+      "id": "card-reveal-pop",
+      "kind": "sfx",
+      "file": "sfx/card-reveal-pop.mp3",
+      "description": "Low-mid pop, a card or panel expanding open",
+      "tags": [
+        "ui",
+        "card",
+        "reveal",
+        "pop"
+      ],
+      "group": "ui",
+      "durationSec": 0.21,
+      "peakDb": -8.9,
+      "rmsDb": -22.3
+    },
+    {
+      "id": "check-complete-tick",
+      "kind": "sfx",
+      "file": "sfx/check-complete-tick.mp3",
+      "description": "Mid tick, a spinner turning into a check",
+      "tags": [
+        "ui",
+        "check",
+        "complete",
+        "tick"
+      ],
+      "group": "ui",
+      "durationSec": 0.13,
+      "peakDb": -9.8,
+      "rmsDb": -28
+    },
+    {
+      "id": "cursor-blink-tick",
+      "kind": "sfx",
+      "file": "sfx/cursor-blink-tick.mp3",
+      "description": "Light high tick, a text cursor appearing",
+      "tags": [
+        "ui",
+        "cursor",
+        "blink",
+        "tick"
+      ],
+      "group": "ui",
+      "durationSec": 0.13,
+      "peakDb": -9,
+      "rmsDb": -27.4
+    },
+    {
+      "id": "cursor-cta-press-pop",
+      "kind": "sfx",
+      "file": "sfx/cursor-cta-press-pop.mp3",
+      "description": "Low round pop, a button or CTA landing on screen",
+      "tags": [
+        "ui",
+        "cursor",
+        "cta",
+        "press",
+        "pop"
+      ],
+      "group": "ui",
+      "durationSec": 0.21,
+      "peakDb": -9.1,
+      "rmsDb": -22.3
+    },
+    {
+      "id": "generating-riser",
+      "kind": "sfx",
+      "file": "sfx/generating-riser.mp3",
+      "description": "Short riser, a working or generating state starting",
+      "tags": [
+        "ui",
+        "generating",
+        "riser"
+      ],
+      "group": "ui",
+      "durationSec": 0.57,
+      "peakDb": -8.2,
+      "rmsDb": -25.1
+    },
+    {
+      "id": "message-send-pop",
+      "kind": "sfx",
+      "file": "sfx/message-send-pop.mp3",
+      "description": "Mid pop, a chat bubble sending or appearing",
+      "tags": [
+        "ui",
+        "message",
+        "send",
+        "pop"
+      ],
+      "group": "ui",
+      "durationSec": 0.21,
+      "peakDb": -8.9,
+      "rmsDb": -22.3
+    },
+    {
+      "id": "pill-pop-soft",
+      "kind": "sfx",
+      "file": "sfx/pill-pop-soft.mp3",
+      "description": "Small high pop, one chip, pill or tag appearing",
+      "tags": [
+        "ui",
+        "pill",
+        "pop",
+        "soft"
+      ],
+      "group": "ui",
+      "durationSec": 0.21,
+      "peakDb": -8.9,
+      "rmsDb": -22.3
+    },
+    {
+      "id": "pills-pop-sequence-x4",
+      "kind": "sfx",
+      "file": "sfx/pills-pop-sequence-x4.mp3",
+      "description": "4 pops panned across, a row of pills popping in",
+      "tags": [
+        "ui",
+        "pills",
+        "pop",
+        "sequence"
+      ],
+      "group": "ui",
+      "durationSec": 0.47,
+      "peakDb": -9,
+      "rmsDb": -22.2
+    },
+    {
+      "id": "snap-open-click",
+      "kind": "sfx",
+      "file": "sfx/snap-open-click.mp3",
+      "description": "Firm click plus thud, something opening flat, locking or snapping into place",
+      "tags": [
+        "ui",
+        "snap",
+        "open",
+        "click"
+      ],
+      "group": "ui",
+      "durationSec": 0.21,
+      "peakDb": -9.4,
+      "rmsDb": -29.6
+    },
+    {
+      "id": "stream-typing-ticks",
+      "kind": "sfx",
+      "file": "sfx/stream-typing-ticks.mp3",
+      "description": "9 soft ticks, an AI reply streaming in or typing",
+      "tags": [
+        "ui",
+        "stream",
+        "typing",
+        "ticks"
+      ],
+      "group": "ui",
+      "durationSec": 0.65,
+      "peakDb": -8.5,
+      "rmsDb": -29.4
+    },
+    {
+      "id": "text-line-tick",
+      "kind": "sfx",
+      "file": "sfx/text-line-tick.mp3",
+      "description": "Crisp digital tick, one line of text or a UI row appearing",
+      "tags": [
+        "ui",
+        "text",
+        "line",
+        "tick"
+      ],
+      "group": "ui",
+      "durationSec": 0.1,
+      "peakDb": -9.7,
+      "rmsDb": -27.9
+    },
+    {
+      "id": "text-lines-ticks-x3",
+      "kind": "sfx",
+      "file": "sfx/text-lines-ticks-x3.mp3",
+      "description": "3 rising ticks, several lines landing in sequence",
+      "tags": [
+        "ui",
+        "text",
+        "lines",
+        "ticks"
+      ],
+      "group": "ui",
+      "durationSec": 0.39,
+      "peakDb": -9.6,
+      "rmsDb": -31.1
+    },
+    {
+      "id": "dark-to-light-whoosh",
+      "kind": "sfx",
+      "file": "sfx/dark-to-light-whoosh.mp3",
+      "description": "Gentle 0.5 s whoosh, a dark UI morphing to light",
+      "tags": [
+        "moments",
+        "dark",
+        "light",
+        "whoosh"
+      ],
+      "group": "moments",
+      "durationSec": 0.57,
+      "peakDb": -7.7,
+      "rmsDb": -22.5
+    },
+    {
+      "id": "emoji-pop-high",
+      "kind": "sfx",
+      "file": "sfx/emoji-pop-high.mp3",
+      "description": "High pitched pop, a sticker or badge popping in (pair with emoji-pop-low)",
+      "tags": [
+        "moments",
+        "emoji",
+        "pop",
+        "high"
+      ],
+      "group": "moments",
+      "durationSec": 0.21,
+      "peakDb": -9,
+      "rmsDb": -22.3
+    },
+    {
+      "id": "emoji-pop-low",
+      "kind": "sfx",
+      "file": "sfx/emoji-pop-low.mp3",
+      "description": "Low pitched pop, a sticker or badge popping in (pair with emoji-pop-high)",
+      "tags": [
+        "moments",
+        "emoji",
+        "pop",
+        "low"
+      ],
+      "group": "moments",
+      "durationSec": 0.21,
+      "peakDb": -9.1,
+      "rmsDb": -22.3
+    },
+    {
+      "id": "highlight-bell",
+      "kind": "sfx",
+      "file": "sfx/highlight-bell.mp3",
+      "description": "Single soft bell, a highlight completing",
+      "tags": [
+        "moments",
+        "highlight",
+        "bell"
+      ],
+      "group": "moments",
+      "durationSec": 1.88,
+      "peakDb": -9,
+      "rmsDb": -23.2
+    },
+    {
+      "id": "ring-draw-riser",
+      "kind": "sfx",
+      "file": "sfx/ring-draw-riser.mp3",
+      "description": "Riser timed to ~0.66 s, a circle or annotation drawing around something",
+      "tags": [
+        "moments",
+        "ring",
+        "draw",
+        "riser"
+      ],
+      "group": "moments",
+      "durationSec": 0.76,
+      "peakDb": -9,
+      "rmsDb": -24.2
+    },
+    {
+      "id": "success-chime",
+      "kind": "sfx",
+      "file": "sfx/success-chime.mp3",
+      "description": "Two-note bright bell, done, success or a completed state",
+      "tags": [
+        "moments",
+        "success",
+        "chime"
+      ],
+      "group": "moments",
+      "durationSec": 2.56,
+      "peakDb": -9,
+      "rmsDb": -24.8
+    },
+    {
+      "id": "track-swish",
+      "kind": "sfx",
+      "file": "sfx/track-swish.mp3",
+      "description": "0.4 s swish, bars, tracks or rows sliding in",
+      "tags": [
+        "moments",
+        "track",
+        "swish"
+      ],
+      "group": "moments",
+      "durationSec": 0.47,
+      "peakDb": -7.7,
+      "rmsDb": -22.4
+    },
+    {
+      "id": "avatar-pop-bell",
+      "kind": "sfx",
+      "file": "sfx/avatar-pop-bell.mp3",
+      "description": "Pop plus a long bell tail, an avatar or logo popping in at the end",
+      "tags": [
+        "end",
+        "avatar",
+        "pop",
+        "bell"
+      ],
+      "group": "end",
+      "durationSec": 4.88,
+      "peakDb": -9,
+      "rmsDb": -28.6
+    },
+    {
+      "id": "end-chord-pluck-pad",
+      "kind": "sfx",
+      "file": "sfx/end-chord-pluck-pad.mp3",
+      "description": "Pad plus a plucked C major chord, the last frames and resolve",
+      "tags": [
+        "end",
+        "chord",
+        "pluck",
+        "pad"
+      ],
+      "group": "end",
+      "durationSec": 3.08,
+      "peakDb": -9,
+      "rmsDb": -25.2
+    },
+    {
+      "id": "end-sub-hit",
+      "kind": "sfx",
+      "file": "sfx/end-sub-hit.mp3",
+      "description": "Deep sub drop, the end card or final headline landing",
+      "tags": [
+        "end",
+        "sub",
+        "hit"
+      ],
+      "group": "end",
+      "durationSec": 0.78,
+      "peakDb": -9,
+      "rmsDb": -20.7
+    },
+    {
+      "id": "drums-only-120bpm-1bar",
+      "kind": "sfx",
+      "file": "sfx/drums-only-120bpm-1bar.mp3",
+      "description": "Kick, clap and hats, 1 bar at 120 bpm (2 s), adds energy back in",
+      "tags": [
+        "music",
+        "drums",
+        "only"
+      ],
+      "group": "layers",
+      "durationSec": 2.01,
+      "peakDb": -8.5,
+      "rmsDb": -24
+    },
+    {
+      "id": "motion-air",
+      "kind": "sfx",
+      "file": "sfx/motion-air.mp3",
+      "description": "Faint air, the cursor moving in",
+      "tags": [
+        "motion",
+        "air"
+      ],
+      "group": "motion",
+      "durationSec": 0.72,
+      "peakDb": -9,
+      "rmsDb": -27.3
+    },
+    {
+      "id": "motion-burst",
+      "kind": "sfx",
+      "file": "sfx/motion-burst.mp3",
+      "description": "Burst with sparkles, a file popping out",
+      "tags": [
+        "motion",
+        "burst"
+      ],
+      "group": "motion",
+      "durationSec": 1.27,
+      "peakDb": -8.9,
+      "rmsDb": -24.7
+    },
+    {
+      "id": "motion-card-1",
+      "kind": "sfx",
+      "file": "sfx/motion-card-1.mp3",
+      "description": "Card flick, a tile flying out (3 variations)",
+      "tags": [
+        "motion",
+        "card"
+      ],
+      "group": "motion",
+      "durationSec": 0.74,
+      "peakDb": -8.9,
+      "rmsDb": -26.9
+    },
+    {
+      "id": "motion-card-2",
+      "kind": "sfx",
+      "file": "sfx/motion-card-2.mp3",
+      "description": "Card flick, a tile flying out (3 variations)",
+      "tags": [
+        "motion",
+        "card"
+      ],
+      "group": "motion",
+      "durationSec": 0.84,
+      "peakDb": -9,
+      "rmsDb": -27.4
+    },
+    {
+      "id": "motion-card-3",
+      "kind": "sfx",
+      "file": "sfx/motion-card-3.mp3",
+      "description": "Card flick, a tile flying out (3 variations)",
+      "tags": [
+        "motion",
+        "card"
+      ],
+      "group": "motion",
+      "durationSec": 0.74,
+      "peakDb": -9,
+      "rmsDb": -27.6
+    },
+    {
+      "id": "motion-check-1",
+      "kind": "sfx",
+      "file": "sfx/motion-check-1.mp3",
+      "description": "Bell tick, a value or check landing (4 rising notes)",
+      "tags": [
+        "motion",
+        "check"
+      ],
+      "group": "motion",
+      "durationSec": 0.82,
+      "peakDb": -9,
+      "rmsDb": -23.8
+    },
+    {
+      "id": "motion-check-2",
+      "kind": "sfx",
+      "file": "sfx/motion-check-2.mp3",
+      "description": "Bell tick, a value or check landing (4 rising notes)",
+      "tags": [
+        "motion",
+        "check"
+      ],
+      "group": "motion",
+      "durationSec": 0.89,
+      "peakDb": -9,
+      "rmsDb": -24.2
+    },
+    {
+      "id": "motion-check-3",
+      "kind": "sfx",
+      "file": "sfx/motion-check-3.mp3",
+      "description": "Bell tick, a value or check landing (4 rising notes)",
+      "tags": [
+        "motion",
+        "check"
+      ],
+      "group": "motion",
+      "durationSec": 0.96,
+      "peakDb": -9,
+      "rmsDb": -23.9
+    },
+    {
+      "id": "motion-check-4",
+      "kind": "sfx",
+      "file": "sfx/motion-check-4.mp3",
+      "description": "Bell tick, a value or check landing (4 rising notes)",
+      "tags": [
+        "motion",
+        "check"
+      ],
+      "group": "motion",
+      "durationSec": 0.77,
+      "peakDb": -9,
+      "rmsDb": -23.2
+    },
+    {
+      "id": "motion-chime",
+      "kind": "sfx",
+      "file": "sfx/motion-chime.mp3",
+      "description": "Five-note closing chime",
+      "tags": [
+        "motion",
+        "chime"
+      ],
+      "group": "motion",
+      "durationSec": 3.22,
+      "peakDb": -9,
+      "rmsDb": -25
+    },
+    {
+      "id": "motion-click",
+      "kind": "sfx",
+      "file": "sfx/motion-click.mp3",
+      "description": "Mouse click, press and release",
+      "tags": [
+        "motion",
+        "click"
+      ],
+      "group": "motion",
+      "durationSec": 0.36,
+      "peakDb": -9.8,
+      "rmsDb": -36.1
+    },
+    {
+      "id": "motion-ding",
+      "kind": "sfx",
+      "file": "sfx/motion-ding.mp3",
+      "description": "Bright bell, done",
+      "tags": [
+        "motion",
+        "ding"
+      ],
+      "group": "motion",
+      "durationSec": 1.94,
+      "peakDb": -9.3,
+      "rmsDb": -24.7
+    },
+    {
+      "id": "motion-hit",
+      "kind": "sfx",
+      "file": "sfx/motion-hit.mp3",
+      "description": "Big logo hit: sub drop, crack and bell chord",
+      "tags": [
+        "motion",
+        "hit"
+      ],
+      "group": "motion",
+      "durationSec": 2.42,
+      "peakDb": -9.7,
+      "rmsDb": -26.6
+    },
+    {
+      "id": "motion-hover",
+      "kind": "sfx",
+      "file": "sfx/motion-hover.mp3",
+      "description": "Rising hover blip, the cursor reaching a target",
+      "tags": [
+        "motion",
+        "hover"
+      ],
+      "group": "motion",
+      "durationSec": 0.82,
+      "peakDb": -9,
+      "rmsDb": -27.8
+    },
+    {
+      "id": "motion-key-1",
+      "kind": "sfx",
+      "file": "sfx/motion-key-1.mp3",
+      "description": "Mechanical key, one keystroke (4 variations)",
+      "tags": [
+        "motion",
+        "key"
+      ],
+      "group": "motion",
+      "durationSec": 0.36,
+      "peakDb": -8.6,
+      "rmsDb": -32.6
+    },
+    {
+      "id": "motion-key-2",
+      "kind": "sfx",
+      "file": "sfx/motion-key-2.mp3",
+      "description": "Mechanical key, one keystroke (4 variations)",
+      "tags": [
+        "motion",
+        "key"
+      ],
+      "group": "motion",
+      "durationSec": 0.36,
+      "peakDb": -8.6,
+      "rmsDb": -32.6
+    },
+    {
+      "id": "motion-key-3",
+      "kind": "sfx",
+      "file": "sfx/motion-key-3.mp3",
+      "description": "Mechanical key, one keystroke (4 variations)",
+      "tags": [
+        "motion",
+        "key"
+      ],
+      "group": "motion",
+      "durationSec": 0.34,
+      "peakDb": -9,
+      "rmsDb": -32.4
+    },
+    {
+      "id": "motion-key-4",
+      "kind": "sfx",
+      "file": "sfx/motion-key-4.mp3",
+      "description": "Mechanical key, one keystroke (4 variations)",
+      "tags": [
+        "motion",
+        "key"
+      ],
+      "group": "motion",
+      "durationSec": 0.34,
+      "peakDb": -8.6,
+      "rmsDb": -32.1
+    },
+    {
+      "id": "motion-morph-down",
+      "kind": "sfx",
+      "file": "sfx/motion-morph-down.mp3",
+      "description": "Rubbery UI morph, the card reshaping (down)",
+      "tags": [
+        "motion",
+        "morph",
+        "down"
+      ],
+      "group": "motion",
+      "durationSec": 0.94,
+      "peakDb": -9,
+      "rmsDb": -22.7
+    },
+    {
+      "id": "motion-morph-up",
+      "kind": "sfx",
+      "file": "sfx/motion-morph-up.mp3",
+      "description": "Rubbery UI morph, the card reshaping (up)",
+      "tags": [
+        "motion",
+        "morph"
+      ],
+      "group": "motion",
+      "durationSec": 0.89,
+      "peakDb": -9,
+      "rmsDb": -22.5
+    },
+    {
+      "id": "motion-pop",
+      "kind": "sfx",
+      "file": "sfx/motion-pop.mp3",
+      "description": "Soft rounded pop, a pill or button appearing",
+      "tags": [
+        "motion",
+        "pop"
+      ],
+      "group": "motion",
+      "durationSec": 0.7,
+      "peakDb": -9.1,
+      "rmsDb": -28.5
+    },
+    {
+      "id": "motion-ring",
+      "kind": "sfx",
+      "file": "sfx/motion-ring.mp3",
+      "description": "Airy shock ring",
+      "tags": [
+        "motion",
+        "ring"
+      ],
+      "group": "motion",
+      "durationSec": 1.01,
+      "peakDb": -9,
+      "rmsDb": -26
+    },
+    {
+      "id": "motion-riser",
+      "kind": "sfx",
+      "file": "sfx/motion-riser.mp3",
+      "description": "1.25 s riser, progress filling",
+      "tags": [
+        "motion",
+        "riser"
+      ],
+      "group": "motion",
+      "durationSec": 1.92,
+      "peakDb": -8.8,
+      "rmsDb": -26.1
+    },
+    {
+      "id": "motion-row-1",
+      "kind": "sfx",
+      "file": "sfx/motion-row-1.mp3",
+      "description": "Pitched row blip, a list row appearing (4 rising notes)",
+      "tags": [
+        "motion",
+        "row"
+      ],
+      "group": "motion",
+      "durationSec": 0.65,
+      "peakDb": -9.4,
+      "rmsDb": -28.5
+    },
+    {
+      "id": "motion-row-2",
+      "kind": "sfx",
+      "file": "sfx/motion-row-2.mp3",
+      "description": "Pitched row blip, a list row appearing (4 rising notes)",
+      "tags": [
+        "motion",
+        "row"
+      ],
+      "group": "motion",
+      "durationSec": 0.74,
+      "peakDb": -9,
+      "rmsDb": -29.2
+    },
+    {
+      "id": "motion-row-3",
+      "kind": "sfx",
+      "file": "sfx/motion-row-3.mp3",
+      "description": "Pitched row blip, a list row appearing (4 rising notes)",
+      "tags": [
+        "motion",
+        "row"
+      ],
+      "group": "motion",
+      "durationSec": 0.7,
+      "peakDb": -9,
+      "rmsDb": -27.9
+    },
+    {
+      "id": "motion-row-4",
+      "kind": "sfx",
+      "file": "sfx/motion-row-4.mp3",
+      "description": "Pitched row blip, a list row appearing (4 rising notes)",
+      "tags": [
+        "motion",
+        "row"
+      ],
+      "group": "motion",
+      "durationSec": 0.67,
+      "peakDb": -9.4,
+      "rmsDb": -28.3
+    },
+    {
+      "id": "motion-send",
+      "kind": "sfx",
+      "file": "sfx/motion-send.mp3",
+      "description": "Upward sweep, a message sent",
+      "tags": [
+        "motion",
+        "send"
+      ],
+      "group": "motion",
+      "durationSec": 0.84,
+      "peakDb": -9,
+      "rmsDb": -26.2
+    },
+    {
+      "id": "motion-snap",
+      "kind": "sfx",
+      "file": "sfx/motion-snap.mp3",
+      "description": "Snap, pieces locking together",
+      "tags": [
+        "motion",
+        "snap"
+      ],
+      "group": "motion",
+      "durationSec": 0.65,
+      "peakDb": -8.8,
+      "rmsDb": -32.2
+    },
+    {
+      "id": "motion-space",
+      "kind": "sfx",
+      "file": "sfx/motion-space.mp3",
+      "description": "Space bar",
+      "tags": [
+        "motion",
+        "space"
+      ],
+      "group": "motion",
+      "durationSec": 0.41,
+      "peakDb": -9.1,
+      "rmsDb": -29
+    },
+    {
+      "id": "motion-suck",
+      "kind": "sfx",
+      "file": "sfx/motion-suck.mp3",
+      "description": "Reverse suck, things pulled into one place",
+      "tags": [
+        "motion",
+        "suck"
+      ],
+      "group": "motion",
+      "durationSec": 1.08,
+      "peakDb": -8.7,
+      "rmsDb": -28.7
+    },
+    {
+      "id": "motion-swish",
+      "kind": "sfx",
+      "file": "sfx/motion-swish.mp3",
+      "description": "Light swish, a caption changing",
+      "tags": [
+        "motion",
+        "swish"
+      ],
+      "group": "motion",
+      "durationSec": 0.77,
+      "peakDb": -8.8,
+      "rmsDb": -27.3
+    },
+    {
+      "id": "motion-thud",
+      "kind": "sfx",
+      "file": "sfx/motion-thud.mp3",
+      "description": "Low thud, something landing",
+      "tags": [
+        "motion",
+        "thud"
+      ],
+      "group": "motion",
+      "durationSec": 0.84,
+      "peakDb": -9,
+      "rmsDb": -21
+    },
+    {
+      "id": "motion-tick",
+      "kind": "sfx",
+      "file": "sfx/motion-tick.mp3",
+      "description": "Tiny bright tick, a word or letter landing",
+      "tags": [
+        "motion",
+        "tick"
+      ],
+      "group": "motion",
+      "durationSec": 0.46,
+      "peakDb": -8.9,
+      "rmsDb": -35.1
+    },
+    {
+      "id": "motion-tock",
+      "kind": "sfx",
+      "file": "sfx/motion-tock.mp3",
+      "description": "Soft wooden tock, a word streaming in",
+      "tags": [
+        "motion",
+        "tock"
+      ],
+      "group": "motion",
+      "durationSec": 0.53,
+      "peakDb": -8.9,
+      "rmsDb": -32.8
+    },
+    {
+      "id": "motion-whip",
+      "kind": "sfx",
+      "file": "sfx/motion-whip.mp3",
+      "description": "Fast whip, a piece flying in",
+      "tags": [
+        "motion",
+        "whip"
+      ],
+      "group": "motion",
+      "durationSec": 0.62,
+      "peakDb": -9.4,
+      "rmsDb": -30.6
+    },
+    {
+      "id": "motion-whoosh",
+      "kind": "sfx",
+      "file": "sfx/motion-whoosh.mp3",
+      "description": "Air whoosh, cards spreading",
+      "tags": [
+        "motion",
+        "whoosh"
+      ],
+      "group": "motion",
+      "durationSec": 1.01,
+      "peakDb": -8.6,
+      "rmsDb": -27
+    },
+    {
+      "id": "motion-zip",
+      "kind": "sfx",
+      "file": "sfx/motion-zip.mp3",
+      "description": "Zip, something shrinking fast",
+      "tags": [
+        "motion",
+        "zip"
+      ],
+      "group": "motion",
+      "durationSec": 0.74,
+      "peakDb": -9.1,
+      "rmsDb": -26.3
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+# secrets: every env file but the examples
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# dependencies
+node_modules/
+
+# build output
+.next/
+.next-*/
+out/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+client/public/compiler/
+.vercel/
+
+# generated at runtime: projects, renders, uploads
+server/data/
+server/projects/
+server/public/bundles/
+server/.kit-test-*/
+
+# os, editor, logs
+.DS_Store
+*.swp
+*.log
