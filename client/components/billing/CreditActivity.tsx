@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AgCharts } from "ag-charts-react";
 import { AllCommunityModule as AllChartsModule, type AgCartesianChartOptions } from "ag-charts-community";
 import { AgGridReact, type CustomCellRendererProps } from "ag-grid-react";
-import { AllCommunityModule, ModuleRegistry, themeQuartz, type ColDef, type GridApi } from "ag-grid-community";
+import { AllCommunityModule, ModuleRegistry, themeQuartz, type ColDef } from "ag-grid-community";
 import { Check, Copy, Download, Search } from "lucide-react";
 
 import { cn } from "@/components/ui";
@@ -139,6 +139,8 @@ function BalanceChart({ rows }: { rows: Row[] }) {
     return {
       data: points,
       background: { fill: c.panel },
+      // the chart's own size: its default (300 px tall) overflows the 220 px box and covers the filters under it
+      height: 220,
       padding: { top: 12, right: 16, bottom: 8, left: 8 },
       series: [
         {
@@ -175,7 +177,7 @@ function BalanceChart({ rows }: { rows: Row[] }) {
 }
 
 export default function CreditActivity({ rows }: { rows: Row[] }) {
-  const grid = useRef<GridApi<Row> | null>(null);
+  const grid = useRef<AgGridReact<Row>>(null);
   const [kind, setKind] = useState<KindFilter>("all");
   const [query, setQuery] = useState("");
 
@@ -235,7 +237,7 @@ export default function CreditActivity({ rows }: { rows: Row[] }) {
           </div>
         ) : (
           <>
-            <div className="border-b border-line px-2 pt-3">
+            <div className="overflow-hidden border-b border-line px-2 pt-3">
               <BalanceChart rows={rows} />
             </div>
             <div className="flex flex-wrap items-center gap-2 border-b border-line px-4 py-3">
@@ -268,7 +270,14 @@ export default function CreditActivity({ rows }: { rows: Row[] }) {
               </label>
               <button
                 type="button"
-                onClick={() => grid.current?.exportDataAsCsv({ fileName: "xlaunch-credits.csv", columnKeys: ["at", "kind", "description", "credits", "balance", "paypalOrderId"] })}
+                onClick={() =>
+                  grid.current?.api.exportDataAsCsv({
+                    fileName: "xlaunch-credits.csv",
+                    columnKeys: ["at", "kind", "description", "credits", "balance", "paypalOrderId"],
+                    // dates as ISO and plain numbers, so a spreadsheet reads them as dates and numbers
+                    processCellCallback: (p) => (p.column.getColId() === "at" ? p.value : ["credits", "balance"].includes(p.column.getColId()) ? String(p.value) : p.formatValue(p.value)),
+                  })
+                }
                 className="inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-lg border border-line px-2.5 text-xs font-medium text-mute transition-[color,border-color] hover:border-line-hi hover:text-fg active:scale-[0.97]"
               >
                 <Download className="size-3.5" /> CSV
@@ -276,13 +285,13 @@ export default function CreditActivity({ rows }: { rows: Row[] }) {
             </div>
             <div style={{ height: Math.min(44 * 10 + 38, 44 * Math.max(shown.length, 3) + 38) }}>
               <AgGridReact<Row>
+                ref={grid}
                 theme={gridTheme}
                 rowData={shown}
                 columnDefs={columns}
                 defaultColDef={{ sortable: true, resizable: true, suppressMovable: true }}
                 quickFilterText={query}
                 getRowId={(p) => String(p.data.id)}
-                onGridReady={(e) => (grid.current = e.api)}
                 animateRows
                 suppressCellFocus
                 overlayNoRowsTemplate='<span style="color: var(--fg-mute); font-size: 13px">Nothing matches.</span>'
