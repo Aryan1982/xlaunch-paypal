@@ -8,7 +8,7 @@ free preview shows the plan and the opening; the full film is paid for with **Pa
 Built for the [PayPal AI Hackathon](https://paypalaihackathon.devpost.com/). Payments run in the **PayPal sandbox**:
 no real money moves.
 
-- Live demo: _added once deployed_
+- Live demo: https://xlaunch-paypal.vercel.app (API: https://paypal-api.xlaunch.pro)
 - Sandbox test buyer for the demo: in the Devpost submission's testing instructions
 
 ## How PayPal is used
