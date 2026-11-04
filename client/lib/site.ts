@@ -5,6 +5,8 @@
  */
 
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://xlaunch.pro").replace(/\/$/, "");
+/** Where this app runs (its API and MCP server): the demo's own origin, while canonical links stay on SITE_URL. */
+export const APP_URL = (process.env.NEXT_PUBLIC_APP_ORIGIN || SITE_URL).replace(/\/$/, "");
 export const SITE_NAME = "XLaunch";
 export const TAGLINE = "Launch videos from your website";
 export const DESCRIPTION =
@@ -64,8 +66,8 @@ export const FAQ = [
   },
   {
     q: "Can Claude or other AI agents make videos with XLaunch?",
-    a: `Yes. XLaunch is an MCP server at ${SITE_URL}/api/mcp. In claude.ai or the Claude app, add it as a custom connector (Settings, then Connectors) and sign in to XLaunch; in Claude Code or another MCP client you can also connect with an API key. Claude can then create, revise and export videos for you, paid from your credits.`,
+    a: `Yes. XLaunch is an MCP server at ${APP_URL}/api/mcp. In claude.ai or the Claude app, add it as a custom connector (Settings, then Connectors) and sign in to XLaunch; in Claude Code or another MCP client you can also connect with an API key. Claude can then create, revise and export videos for you, paid from your credits. Out of credits, it gives you a PayPal link to approve the purchase: it can't pay for you.`,
   },
 ];
 
-export const MCP_COMMAND = `claude mcp add --transport http xlaunch ${SITE_URL}/api/mcp --header "Authorization: Bearer xl_..."`;
+export const MCP_COMMAND = `claude mcp add --transport http xlaunch ${APP_URL}/api/mcp --header "Authorization: Bearer xl_..."`;

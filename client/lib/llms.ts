@@ -1,6 +1,6 @@
 import { ALTERNATIVES, CHECKED_ON, xlaunchPrices } from "./alternatives";
 import { getPricing } from "./pricing";
-import { DESCRIPTION, FAQ, MCP_COMMAND, SITE_NAME, SITE_URL, STEPS, TAGLINE } from "./site";
+import { APP_URL, DESCRIPTION, FAQ, MCP_COMMAND, SITE_NAME, SITE_URL, STEPS, TAGLINE } from "./site";
 import { USE_CASES } from "./use-cases";
 
 const usd = (cents: number) => `$${(cents / 100).toLocaleString("en-US", { maximumFractionDigits: cents % 100 ? 2 : 0 })}`;
@@ -45,7 +45,7 @@ export async function llmsText({ full }: { full: boolean }): Promise<string> {
   );
   lines.push(
     "## Use from Claude (MCP)",
-    `${SITE_NAME} is a remote MCP server at ${SITE_URL}/api/mcp (Streamable HTTP). In claude.ai or the Claude app, add it as a custom connector and sign in to ${SITE_NAME} (OAuth); other clients can send an API key as a bearer token. Tools: create_video, get_video_status, confirm_brief, revise_video, confirm_revision, stop_video, export_video, get_download_url, list_videos, get_credits.`,
+    `${SITE_NAME} is a remote MCP server at ${APP_URL}/api/mcp (Streamable HTTP). In claude.ai or the Claude app, add it as a custom connector and sign in to ${SITE_NAME} (OAuth); other clients can send an API key as a bearer token. Tools: create_video, get_video_status, confirm_brief, revise_video, confirm_revision, stop_video, export_video, get_download_url, list_videos, get_credits, buy_credits (a PayPal approval link for the human), check_purchase, finish_preview.`,
     "",
     "```",
     MCP_COMMAND,

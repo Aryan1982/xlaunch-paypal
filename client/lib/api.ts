@@ -54,6 +54,21 @@ export type CheckoutStatus = { state: "paid" | "pending" | "failed"; credited: b
 /** Launch pricing: on until `endsAt` (an ISO date, inclusive). */
 export type Offer = { name: string; endsAt: string };
 
+/** One change on the account's credits (GET /billing/activity), newest first. */
+export type CreditActivity = {
+  id: number;
+  at: string;
+  kind: "purchase" | "spend" | "refund" | "adjust";
+  /** Signed: + added, - taken. */
+  credits: number;
+  /** The balance right after this change. */
+  balance: number;
+  description: string;
+  projectId: string | null;
+  projectTitle: string | null;
+  paypalOrderId: string | null;
+};
+
 export type Billing = {
   /** Off: no payments yet, the monthly quotas are the limit. */
   enabled: boolean;
@@ -133,6 +148,8 @@ export const api = {
   buildPreview: (id: string, choice: { model?: string; effort?: Effort } = {}) => post<{ ok: true }>(`/projects/${id}/build`, choice),
   /** What a PayPal order really came to: an approved one is captured and credited by the server. */
   checkoutStatus: (orderId: string) => request<CheckoutStatus>(`/billing/checkout-status?${new URLSearchParams({ order_id: orderId })}`),
+  /** Every purchase, charge and refund on the account, newest first (up to 500). */
+  activity: () => request<{ items: CreditActivity[] }>("/billing/activity").then((r) => r.items),
   /** All examples chosen for a place (both styles), in the order set in the CMS. */
   showcase: (place: "home" | "login" = "home") => request<ShowcasePage>(`/showcase?place=${place}`).then((r) => r.items),
   /** One page of examples in a style, newest first. */

@@ -17,7 +17,7 @@ import { AttachedThumbs, useReferences } from "@/components/References";
 import { AspectPicker, useAspect } from "@/components/AspectPicker";
 import { RunnerToggle, useRunner } from "@/components/RunnerToggle";
 import { PromptMenu } from "@/components/home/PromptMenu";
-import { HeroBadges } from "@/components/home/Badges";
+import { HackathonPill } from "@/components/home/HackathonPill";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Scene } from "@/components/Scene";
 import { Showcase } from "@/components/Showcase";
@@ -231,7 +231,7 @@ export function HomeClient({ children }: { children?: ReactNode }) {
         )}
       >
         <main className={cn("mx-auto w-full max-w-[720px] text-center", sideFilm && "lg:mx-0 lg:text-left")}>
-          <HeroBadges className={cn("rise mb-6 justify-center", sideFilm && "lg:justify-start")} />
+          <HackathonPill className={cn("rise mb-6 justify-center", sideFilm && "lg:justify-start")} />
           <h1
             key={`h-${mode}`}
             className="rise text-balance text-[32px] font-medium leading-[1.12] tracking-tight text-[color:var(--hero-fg)] sm:text-[44px]"

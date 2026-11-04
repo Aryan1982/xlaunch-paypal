@@ -24,21 +24,6 @@ function BadgeLink({ badge, size, lazy, className }: { badge: Badge; size: strin
   );
 }
 
-/** Above the headline: the badges marked `hero` (Product Hunt), in full colour. */
-export function HeroBadges({ className }: { className?: string }) {
-  const hero = BADGES.filter((b) => b.hero);
-  if (!hero.length) return null;
-  return (
-    <ul aria-label="Featured on" className={`flex flex-wrap items-center gap-3 ${className ?? ""}`}>
-      {hero.map((b) => (
-        <li key={b.slug}>
-          <BadgeLink badge={b} size="h-10 w-auto" className="block transition-opacity hover:opacity-85" />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 /**
  * The footer: every directory XLaunch is listed on, in BADGES order, on an
  * even grid. Each badge sits in the same box and is shown muted (grey, softer)

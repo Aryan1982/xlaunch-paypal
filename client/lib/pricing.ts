@@ -68,7 +68,10 @@ export const typicalVideo = (costs: Pick<Costs, "video" | "lineup" | "narration"
 /** "about 5 videos on average (2–35, by model)" for a number of credits: narrated videos across the models on offer. */
 export const videosFor = (credits: number, costs: Pick<Costs, "video" | "lineup" | "narration">): string => {
   const t = typicalVideo(costs);
-  const count = (each: number) => Math.max(0, Math.floor(credits / each)).toLocaleString("en-US");
-  if (t.cheapest === t.dearest) return `about ${count(t.average)} videos`;
-  return `about ${count(t.average)} videos on average (${count(t.dearest)}–${count(t.cheapest)}, by model)`;
+  const n = (each: number) => Math.max(0, Math.floor(credits / each));
+  const videos = (k: number) => `${k.toLocaleString("en-US")} ${k === 1 ? "video" : "videos"}`;
+  if (t.cheapest === t.dearest) return `about ${videos(n(t.average))}`;
+  // fewer than one at the average: say what the cheaper models make instead of "about 0 videos"
+  if (n(t.average) === 0) return n(t.cheapest) > 0 ? `enough for ${videos(n(t.cheapest))} with the cheapest model` : "not quite a video yet";
+  return `about ${videos(n(t.average))} on average (${n(t.dearest).toLocaleString("en-US")}–${n(t.cheapest).toLocaleString("en-US")}, by model)`;
 };

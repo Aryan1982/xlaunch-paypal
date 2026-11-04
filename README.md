@@ -15,7 +15,7 @@ no real money moves.
 
 | Where | PayPal | Code |
 | --- | --- | --- |
-| Credits page | PayPal JS SDK buttons (PayPal, Venmo for US buyers, cards) in PayPal's window | `client/components/PayPalButtons.tsx`, `client/app/billing/page.tsx` |
+| Credits page | PayPal JS SDK buttons (PayPal, Pay Later, Venmo for US buyers; cards inside PayPal's window) | `client/components/PayPalButtons.tsx`, `client/app/billing/page.tsx` |
 | Paywall and home page | Redirect to PayPal's approval page, back to the video | `client/components/project/Paywall.tsx`, `client/components/CheckoutResult.tsx` |
 | Orders | **Orders v2**: the server creates each order (amount from the catalog, buyer in `custom_id`) and captures it | `server/src/billing/paypal.ts` |
 | Webhooks | `CHECKOUT.ORDER.APPROVED` (capture, for a buyer who never comes back), `PAYMENT.CAPTURE.COMPLETED` (grant), `PAYMENT.CAPTURE.REFUNDED` (a full refund takes the credits back), each verified with `verify-webhook-signature` | `server/src/billing/paypal.ts`, `server/src/api.ts` |
@@ -35,6 +35,22 @@ took the pack's full price in USD. Capturing twice is safe (one PayPal-Request-I
 - **Narration**: ElevenLabs `eleven_v3` records the voice-over the agent writes; captions are timed to the measured
   word starts.
 - **MCP server** (`/api/mcp`, OAuth or API key): Claude and other agents make, change, export and pay for videos.
+
+## Sponsor tools
+
+- **AG Grid + AG Charts** (Community): the Credits page's **Activity**. AG Charts draws the balance over time (each
+  PayPal purchase a step up, each video a step down, refunds back); AG Grid lists every purchase, video charge and
+  refund with its PayPal order id, balance after, search, type filters, sorting and CSV export. Both are themed from the
+  site's CSS variables, so they follow the light/dark switch, and load only on that page.
+  `client/components/billing/CreditActivity.tsx`, backed by `GET /api/billing/activity` (`server/src/billing/activity.ts`).
+- **Postman**: [`postman/`](postman) has a collection and an environment for the demo: the price list, balance and
+  activity, the PayPal checkout (create an order, approve it in a browser, check it, which captures it), videos, and
+  the MCP tools an agent buys credits with. Every request has tests. Import both into Postman, set `apiKey` (make one on
+  the Credits page), or run it from a terminal:
+
+  ```bash
+  npx newman run postman/XLaunch.postman_collection.json -e postman/XLaunch-demo.postman_environment.json --env-var apiKey=xl_...
+  ```
 
 ## Run it
 
@@ -83,11 +99,12 @@ cd server && npm test && npm run typecheck
 
 | Path | What |
 | --- | --- |
-| `server/src/billing/` | credits, the catalog, PayPal (`paypal.ts`), the provider switch (`checkout.ts`) |
+| `server/src/billing/` | credits, the catalog, PayPal (`paypal.ts`), the provider switch (`checkout.ts`), credit activity (`activity.ts`) |
 | `server/src/pipeline/` | research, the film agent, narration, rendering |
 | `server/src/mcp.ts` | the MCP server, including the purchase tools |
 | `server/motion-studio/` | the film agent's Remotion template and its motion-design skill |
 | `client/` | the Next.js web app (deployed on Vercel); `/api` is proxied to the server by `proxy.ts` |
+| `postman/` | the Postman collection and environment for the demo's API and MCP server |
 
 ## License
 

@@ -7,7 +7,7 @@ import { ArrowLeft, Mail, Sparkles } from "lucide-react";
 
 import { Scene } from "@/components/Scene";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Button, ErrorBanner, Input } from "@/components/ui";
+import { Button, ErrorBanner, Input, cn } from "@/components/ui";
 import { api, showcasePosterUrl, showcaseVideoUrl, type ShowcaseItem } from "@/lib/api";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { useMode, type Mode } from "@/lib/use-mode";
@@ -101,6 +101,8 @@ function LoginForm() {
   const [wait, setWait] = useState(0);
   const [draft, setDraft] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(params.get("error"));
+  // Google appears only when the Supabase project has it on (the demo's project signs in by email link)
+  const [google, setGoogle] = useState(false);
 
   useEffect(() => {
     void Promise.resolve().then(() => setDraft(peekDraft()?.prompt ?? null));
@@ -108,6 +110,19 @@ function LoginForm() {
     const from = params.get("from");
     track("signin_viewed", { source: SIGNIN_SOURCES.find((s) => s === from) ?? "direct" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    if (!url || !key) return;
+    void fetch(`${url}/auth/v1/settings`, { headers: { apikey: key } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((s: unknown) => {
+        const external = s && typeof s === "object" && "external" in s ? s.external : null;
+        setGoogle(!!external && typeof external === "object" && "google" in external && external.google === true);
+      })
+      .catch(() => undefined);
   }, []);
 
   useEffect(() => {
@@ -197,21 +212,25 @@ function LoginForm() {
                 </div>
               )}
 
-              <Button size="lg" className="mt-6 w-full" onClick={withGoogle} loading={busy === "google"} disabled={busy !== null}>
-                {busy !== "google" && <GoogleMark />}
-                Continue with Google
-              </Button>
-              <div className="my-5 flex items-center gap-3 text-xs text-dim">
-                <span className="h-px flex-1 bg-line" />
-                or with email
-                <span className="h-px flex-1 bg-line" />
-              </div>
+              {google && (
+                <>
+                  <Button size="lg" className="mt-6 w-full" onClick={withGoogle} loading={busy === "google"} disabled={busy !== null}>
+                    {busy !== "google" && <GoogleMark />}
+                    Continue with Google
+                  </Button>
+                  <div className="my-5 flex items-center gap-3 text-xs text-dim">
+                    <span className="h-px flex-1 bg-line" />
+                    or with email
+                    <span className="h-px flex-1 bg-line" />
+                  </div>
+                </>
+              )}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (email.trim()) void sendLink(email.trim());
                 }}
-                className="flex flex-col gap-3"
+                className={cn("flex flex-col gap-3", !google && "mt-6")}
               >
                 <label htmlFor="email" className="sr-only">
                   Email

@@ -40,7 +40,8 @@ const loading = new Map<string, Promise<PayPalNamespace>>();
 const loadSdk = (clientId: string): Promise<PayPalNamespace> => {
   const known = loading.get(clientId);
   if (known) return known;
-  const params = new URLSearchParams({ "client-id": clientId, currency: "USD", intent: "capture", components: "buttons", "enable-funding": "venmo" });
+  // no separate card button: its white "Powered by PayPal" strip breaks a dark page, and cards stay open as guest checkout in PayPal's window
+  const params = new URLSearchParams({ "client-id": clientId, currency: "USD", intent: "capture", components: "buttons", "enable-funding": "venmo", "disable-funding": "card" });
   const promise = new Promise<PayPalNamespace>((resolve, reject) => {
     const script = document.createElement("script");
     script.src = `https://www.paypal.com/sdk/js?${params}`;

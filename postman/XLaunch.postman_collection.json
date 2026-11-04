@@ -1,0 +1,516 @@
+{
+  "info": {
+    "name": "XLaunch \u2014 PayPal + AI launch videos",
+    "description": "The XLaunch API (PayPal AI Hackathon): the PayPal Orders v2 checkout, credit activity, video projects, and the MCP server an AI agent uses to buy credits with PayPal.\n\n1. Sign in at {{appUrl}}, buy a pack with a PayPal **sandbox** buyer, and make an API key on the Credits page (API keys).\n2. Set `apiKey` (xl_...) in the environment.\n3. Run **Checkout \u2192 Create PayPal order**, open `approveUrl` in a browser and approve with the sandbox buyer, then **Check order** captures it and adds the credits.\n\nNo real money moves: the demo runs on the PayPal sandbox.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "orderId",
+      "value": ""
+    },
+    {
+      "key": "approveUrl",
+      "value": ""
+    },
+    {
+      "key": "projectId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Pricing and credits",
+      "item": [
+        {
+          "name": "Price list (public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/pricing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pricing"
+              ]
+            },
+            "description": "What's for sale (credit packs) and typical costs per model. No sign-in.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('sells packs only', () => pm.expect(b.products.every((p) => p.kind === 'pack')).to.be.true);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Balance and packs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/billing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "billing"
+              ]
+            },
+            "description": "Balance, the packs for sale, the PayPal environment (sandbox) and the PayPal client id the web app's buttons load with."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('PayPal sandbox', () => pm.expect(b.environment).to.eql('sandbox'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Credit activity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/billing/activity",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "billing",
+                "activity"
+              ]
+            },
+            "description": "Every purchase (with its PayPal order id), video charge and refund, newest first, with the balance after each."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test('items', () => pm.expect(pm.response.json().items).to.be.an('array'));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Checkout (PayPal Orders v2)",
+      "item": [
+        {
+          "name": "Create PayPal order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/billing/checkout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "billing",
+                "checkout"
+              ]
+            },
+            "description": "Creates a PayPal order for one credit pack (server side, Orders v2, intent CAPTURE). Returns PayPal's approval URL and the order id. Open `approveUrl` and approve with a sandbox buyer.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"pack_one\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.collectionVariables.set('orderId', b.orderId);",
+                  "pm.collectionVariables.set('approveUrl', b.url);",
+                  "pm.test('approval link', () => pm.expect(b.url).to.include('paypal.com'));",
+                  "console.log('Approve the payment here:', b.url);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Check order (captures once approved)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/billing/checkout-status?order_id={{orderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "billing",
+                "checkout-status"
+              ],
+              "query": [
+                {
+                  "key": "order_id",
+                  "value": "{{orderId}}"
+                }
+              ]
+            },
+            "description": "The order's real outcome, asked of PayPal. An approved order is captured here and its credits added, once (`grant:paypal:<order id>`). `state`: pending until the buyer approves, then paid."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "const b = pm.response.json();",
+                  "pm.test('known state', () => pm.expect(['paid', 'pending', 'failed']).to.include(b.state));",
+                  "if (b.state === 'paid') pm.test('credited', () => pm.expect(b.credited).to.be.true);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Videos",
+      "item": [
+        {
+          "name": "Create a video",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": "Starts a launch video for a product URL: research, then the Claude film agent writes it as Remotion code. Holds its credits; charged what it uses. Takes 10-20 minutes.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"A launch video for https://example.com\",\n  \"narration\": true,\n  \"mode\": \"2d\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('projectId', pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get a video",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "{{projectId}}"
+              ]
+            },
+            "description": "Stage, activity and charge. Poll about once a minute."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Finish a free preview",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{projectId}}/build",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "{{projectId}}",
+                "build"
+              ]
+            },
+            "description": "A free preview, paid for: holds the video's credits and builds the rest of the film.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 202\", () => pm.response.to.have.status(202));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MCP (agentic commerce)",
+      "description": "The MCP server AI agents (Claude and others) connect to. `buy_credits` returns a PayPal approval link the agent hands its human; only they can approve it. `check_purchase` captures it once approved.",
+      "item": [
+        {
+          "name": "List tools",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json, text/event-stream"
+              },
+              {
+                "key": "MCP-Protocol-Version",
+                "value": "2025-06-18"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mcp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mcp"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"tools/list\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "// Streamable HTTP: the JSON-RPC answer is one `data:` line",
+                  "const line = pm.response.text().split('\\n').find((l) => l.startsWith('data: '));",
+                  "const msg = JSON.parse(line ? line.slice(6) : pm.response.text());",
+                  "pm.test('no JSON-RPC error', () => pm.expect(msg.error).to.be.undefined);",
+                  "pm.test('purchase tools', () => { const names = msg.result.tools.map((t) => t.name); ['buy_credits', 'check_purchase', 'finish_preview'].forEach((n) => pm.expect(names).to.include(n)); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "buy_credits",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json, text/event-stream"
+              },
+              {
+                "key": "MCP-Protocol-Version",
+                "value": "2025-06-18"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mcp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mcp"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 2,\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"buy_credits\",\n    \"arguments\": {\n      \"sku\": \"pack_one\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "// Streamable HTTP: the JSON-RPC answer is one `data:` line",
+                  "const line = pm.response.text().split('\\n').find((l) => l.startsWith('data: '));",
+                  "const msg = JSON.parse(line ? line.slice(6) : pm.response.text());",
+                  "pm.test('no JSON-RPC error', () => pm.expect(msg.error).to.be.undefined);",
+                  "const out = JSON.parse(msg.result.content[0].text.split('\\n\\n')[0]);",
+                  "pm.collectionVariables.set('orderId', out.orderId);",
+                  "pm.collectionVariables.set('approveUrl', out.checkoutUrl);",
+                  "console.log('The human approves here:', out.checkoutUrl);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "check_purchase",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json, text/event-stream"
+              },
+              {
+                "key": "MCP-Protocol-Version",
+                "value": "2025-06-18"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mcp",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mcp"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 3,\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"check_purchase\",\n    \"arguments\": {\n      \"order_id\": \"{{orderId}}\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+                  "// Streamable HTTP: the JSON-RPC answer is one `data:` line",
+                  "const line = pm.response.text().split('\\n').find((l) => l.startsWith('data: '));",
+                  "const msg = JSON.parse(line ? line.slice(6) : pm.response.text());",
+                  "pm.test('no JSON-RPC error', () => pm.expect(msg.error).to.be.undefined);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -21,6 +21,7 @@ import { handleWebhook } from "./billing/dodo";
 import { BadSignature } from "./billing/events";
 import { handlePaypalWebhook, PAYPAL_WEBHOOK_HEADERS } from "./billing/paypal";
 import { chargeUpTo, chargeVideo, ensureVideoCharge, newRef, settleVideo } from "./billing/jobs";
+import { activityOf } from "./billing/activity";
 import { assertQuota, monthUsage } from "./usage/quota";
 import { recordVideo } from "./usage/ledger";
 import { ensureWorkdir, restoreFile, restoreRender } from "./workdir";
@@ -359,6 +360,13 @@ const offerOf = (): { name: string; endsAt: string } | null => {
   /** Back from checkout: apply any of the caller's payments the webhook hasn't (yet). */
   router.post("/billing/sync", handle(async (_req, res) => {
     res.json({ added: await syncPurchases(accountOf(res)) });
+  }));
+
+  /** The caller's credit history (purchases, charges, refunds), newest first. */
+  router.get("/billing/activity", handle(async (_req, res) => {
+    const account = accountOf(res);
+    res.set("Cache-Control", "no-store");
+    res.json({ items: billingEnabled() ? await activityOf(account.id) : [] });
   }));
 
   router.post("/billing/portal", handle(async (_req, res) => {

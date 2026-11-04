@@ -5,7 +5,7 @@ import { CopyLine } from "@/components/home/CopyLine";
 import { HomePlans } from "@/components/home/HomePlans";
 import { typicalVideo, type Pricing } from "@/lib/pricing";
 import { FeaturedOn } from "@/components/home/Badges";
-import { FAQ, MCP_COMMAND, SITE_NAME, SITE_URL, STEPS } from "@/lib/site";
+import { APP_URL, FAQ, MCP_COMMAND, SITE_NAME, STEPS } from "@/lib/site";
 import { USE_CASES } from "@/lib/use-cases";
 
 /**
@@ -97,14 +97,15 @@ function Claude() {
         <h2 id="claude" className="mt-2 text-[24px] font-medium tracking-tight text-fg">Let Claude make your launch video</h2>
         <p className="mt-2 text-sm leading-relaxed text-mute">
           {SITE_NAME} is an MCP server: connect it to Claude and ask for a video in plain words. Claude creates, revises and
-          exports it for you, paid from your credits.
+          exports it for you, paid from your credits. When it needs more, it hands you a PayPal link to approve: an agent can start a
+          purchase, only you can pay.
         </p>
         <p className="mt-5 text-sm font-medium text-fg">In claude.ai or the Claude app</p>
         <p className="mt-1 text-sm leading-relaxed text-mute">
           Settings, then Connectors, then Add custom connector. Paste this address and sign in to {SITE_NAME}:
         </p>
         <div className="mt-3">
-          <CopyLine text={`${SITE_URL}/api/mcp`} />
+          <CopyLine text={`${APP_URL}/api/mcp`} />
         </div>
         <p className="mt-5 text-sm font-medium text-fg">In Claude Code</p>
         <div className="mt-2">

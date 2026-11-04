@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
 import { CheckoutResult, gaBeginCheckout, readCheckoutReturn, type CheckoutReturn } from "@/components/CheckoutResult";
@@ -12,11 +13,17 @@ import { AccountMenu } from "@/components/AccountMenu";
 import { ApiKeys } from "@/components/ApiKeys";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Badge, Button, ErrorBanner, Skeleton, cn } from "@/components/ui";
-import { ApiError, api, type Billing, type BillingProduct } from "@/lib/api";
+import { ApiError, api, type Billing, type BillingProduct, type CreditActivity as ActivityRow } from "@/lib/api";
 import { useBilling } from "@/lib/use-billing";
 import { typicalVideo, videosFor, type LineupModel } from "@/lib/pricing";
 
 const num = (n: number) => n.toLocaleString("en-US");
+
+// AG Grid and AG Charts: this page only, in the browser only
+const CreditActivity = dynamic(() => import("@/components/billing/CreditActivity"), {
+  ssr: false,
+  loading: () => <Skeleton className="mt-10 h-[520px] rounded-2xl" />,
+});
 
 type Pack = Extract<BillingProduct, { kind: "pack" }>;
 
@@ -94,6 +101,11 @@ export default function BillingPage() {
   const [error, setError] = useState<{ message: string; code?: string } | null>(null);
   // back from PayPal (its approval page, or the buttons' onApprove): shown in a window that asks the server for the outcome
   const [back, setBack] = useState<CheckoutReturn | null>(null);
+  const [activity, setActivity] = useState<ActivityRow[] | null>(null);
+  const reload = useCallback(async () => {
+    await refresh();
+    setActivity(await api.activity().catch(() => []));
+  }, [refresh]);
 
   // Credits come from the server capturing the order (that window) and from PayPal's webhooks; the balance refreshes now and then.
   useEffect(() => {
@@ -110,10 +122,10 @@ export default function BillingPage() {
       window.history.replaceState(null, "", "/billing");
       void Promise.resolve().then(() => setBack(returned));
     }
-    const timer = window.setInterval(() => void refresh(), 60_000);
-    void refresh();
+    const timer = window.setInterval(() => void reload(), 60_000);
+    void Promise.resolve().then(reload);
     return () => window.clearInterval(timer);
-  }, [refresh]);
+  }, [reload]);
 
   const go = async (key: string, open: () => Promise<string>) => {
     setError(null);
@@ -241,12 +253,14 @@ export default function BillingPage() {
               </div>
             </section>
 
+            {activity ? <CreditActivity rows={activity} /> : <Skeleton className="mt-10 h-[520px] rounded-2xl" />}
+
             <section className="mt-10">
               <h2 className="text-lg font-medium">Models and what they cost</h2>
               <p className="mt-1 max-w-[640px] text-sm text-mute">
                 You pay for what the work uses: the AI model&apos;s calls, plus {num(billing.costs.metered.videoFee)} credits per video for rendering and
                 storage, plus narration when it is on. So the model you pick sets the price, for 2D and 3D alike. These are typical amounts, in
-                credits; the video counts on plans and packs are the average across these models, narrated.
+                credits; the video counts on the packs are the average across these models, narrated.
               </p>
               <ModelTable billing={billing} />
             </section>
@@ -294,7 +308,7 @@ export default function BillingPage() {
           back={back}
           products={billing?.products ?? []}
           onClose={() => setBack(null)}
-          onCredited={() => void refresh()}
+          onCredited={() => void reload()}
           onRetry={(sku) => {
             setBack(null);
             void checkout(sku);
