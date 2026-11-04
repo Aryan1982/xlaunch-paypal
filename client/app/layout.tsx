@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { DESCRIPTION, HOME_TITLE, SHORT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { Analytics } from "@/components/Analytics";
+import { DemoNotice } from "@/components/DemoNotice";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         {children}
         <Analytics />
+        <DemoNotice />
       </body>
     </html>
   );

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { CheckoutResult, gaBeginCheckout, readCheckoutReturn, type CheckoutReturn } from "@/components/CheckoutResult";
 import { OfferBanner, PriceTag, savePercent } from "@/components/LaunchPricing";
 import { PayPalButtons } from "@/components/PayPalButtons";
+import { openDemoNotice } from "@/components/DemoNotice";
 import { ArrowLeft, Box, Coins, Square } from "lucide-react";
 
 import { AccountMenu } from "@/components/AccountMenu";
@@ -177,7 +178,11 @@ export default function BillingPage() {
       <main className="mx-auto mt-10 max-w-[960px]">
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="text-2xl font-medium tracking-tight">Credits</h1>
-          {billing?.environment === "sandbox" && <Badge tone="warn">PayPal sandbox: no real charges</Badge>}
+          {billing?.environment === "sandbox" && (
+            <button type="button" onClick={openDemoNotice} className="cursor-pointer rounded-md transition-opacity hover:opacity-80 active:scale-[0.98]" title="About this demo">
+              <Badge tone="warn">PayPal sandbox: no real charges · about this demo</Badge>
+            </button>
+          )}
         </div>
 
         {!billing ? (
