@@ -6,18 +6,43 @@ import { ArrowRight, Play, X } from "lucide-react";
 import { cn } from "@/components/ui";
 
 /**
- * Finished films made with XLaunch, shipped with the server
- * (server/assets/motion-showcase/films.json): the hero's looping example and
- * the "Watch" chips under the composer. Playing one costs nothing and needs no sign-in.
+ * Films on the home page: the XLaunch intro (a static file in public/intro)
+ * first, then finished films made with XLaunch, shipped with the server
+ * (server/assets/motion-showcase/films.json). The first is the hero's
+ * looping film; all of them are "Watch" chips under the composer. Playing
+ * one costs nothing and needs no sign-in.
  */
-export type ExampleFilm = { id: string; site: string; title: string; note: string };
+export type ExampleFilm = {
+  id: string;
+  /** The chip's label. */
+  site: string;
+  title: string;
+  note: string;
+  /** Its own files and caption (the intro); without them, a showcase film from the API. */
+  src?: string;
+  poster?: string;
+  caption?: string;
+};
 
 export const EXAMPLE_FILMS: ExampleFilm[] = [
+  {
+    id: "intro",
+    site: "XLaunch in 30 s",
+    title: "XLaunch",
+    note: "What XLaunch does, in 30 seconds",
+    src: "/intro/xlaunch-intro.mp4",
+    poster: "/intro/xlaunch-intro.jpg",
+    caption: "XLaunch in 30 seconds",
+  },
   { id: "cal", site: "cal.com", title: "Cal.com", note: "With sound effects" },
   { id: "resend-narrated", site: "resend.com", title: "Resend", note: "Narrated, with captions" },
 ];
 
-const fileOf = (film: ExampleFilm, kind: "mp4" | "jpg") => `/api/showcase-motion/${film.id}.${kind}`;
+const fileOf = (film: ExampleFilm, kind: "mp4" | "jpg") =>
+  (kind === "mp4" ? film.src : film.poster) ?? `/api/showcase-motion/${film.id}.${kind}`;
+
+/** "Made with XLaunch from cal.com", or the film's own caption. */
+const captionOf = (film: ExampleFilm) => film.caption ?? `${film.title}, made with XLaunch from ${film.site}`;
 
 /**
  * One film beside the composer, silent and looping: the poster first, the
@@ -49,10 +74,10 @@ export function HeroFilm({ film, onOpen, className }: { film: ExampleFilm; onOpe
         ref={box}
         type="button"
         onClick={onOpen}
-        aria-label={`Play the ${film.title} launch video with sound`}
+        aria-label={`Play ${film.caption ?? `the ${film.title} launch video`} with sound`}
         className="group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-2xl bg-black shadow-[0_30px_80px_-30px_rgba(0,0,0,0.75)] ring-1 ring-white/10 outline-none focus-visible:ring-2 focus-visible:ring-accent"
       >
-        <img src={fileOf(film, "jpg")} alt="" width={960} height={540} className="absolute inset-0 size-full object-cover" />
+        <img src={fileOf(film, "jpg")} alt="" width={1280} height={720} className="absolute inset-0 size-full object-cover" />
         {load && (
           <video
             src={fileOf(film, "mp4")}
@@ -70,7 +95,13 @@ export function HeroFilm({ film, onOpen, className }: { film: ExampleFilm; onOpe
         </span>
       </button>
       <figcaption className="mt-3 text-center text-sm text-[color:var(--hero-fg-mute)] lg:text-left">
-        Made with XLaunch from <span className="text-[color:var(--hero-fg)]">{film.site}</span>
+        {film.caption ? (
+          <span className="text-[color:var(--hero-fg)]">{film.caption}</span>
+        ) : (
+          <>
+            Made with XLaunch from <span className="text-[color:var(--hero-fg)]">{film.site}</span>
+          </>
+        )}
       </figcaption>
     </figure>
   );
@@ -95,7 +126,7 @@ export function FilmDialog({ film, onClose, onMake }: { film: ExampleFilm; onClo
         if (make.current) onMake();
       }}
       onClick={(e) => e.target === ref.current && ref.current?.close()}
-      aria-label={`${film.title} launch video`}
+      aria-label={captionOf(film)}
       className="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-black/80 backdrop:backdrop-blur-sm"
     >
       <div className="flex w-[min(92vw,1100px)] flex-col items-center gap-4">
@@ -110,7 +141,7 @@ export function FilmDialog({ film, onClose, onMake }: { film: ExampleFilm; onClo
         />
         <div className="flex w-full flex-wrap items-center justify-between gap-3 text-white">
           <div className="min-w-0">
-            <div className="text-sm font-medium">{film.title}, made with XLaunch from {film.site}</div>
+            <div className="text-sm font-medium">{captionOf(film)}</div>
             <div className="text-xs text-white/60">{film.note}</div>
           </div>
           <div className="flex items-center gap-2">

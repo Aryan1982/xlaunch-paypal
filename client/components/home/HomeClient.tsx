@@ -401,7 +401,7 @@ export function HomeClient({ children }: { children?: ReactNode }) {
                 key={ex.id}
                 type="button"
                 onClick={() => setFilm(ex)}
-                title={`Play the ${ex.title} launch video made with XLaunch`}
+                title={ex.caption ? `Play ${ex.caption}` : `Play the ${ex.title} launch video made with XLaunch`}
                 className="flex min-h-10 cursor-pointer items-center gap-1.5 rounded-full border border-white/25 px-3.5 font-medium text-[color:var(--hero-fg)] transition-colors hover:bg-white/10"
               >
                 <Play className="size-3 fill-current" />

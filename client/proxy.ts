@@ -166,6 +166,6 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // static files served as they are (badge/ and badges/: the directory badges, lib/badges.ts)
-  matcher: ["/((?!_next/static|_next/image|compiler/|logo/|badges?/|favicon.ico|icon.png|apple-icon.png|hero.svg|hero-3d.svg).*)"],
+  // static files served as they are (badge/ and badges/: the directory badges, lib/badges.ts; intro/: the home page's XLaunch film)
+  matcher: ["/((?!_next/static|_next/image|compiler/|logo/|badges?/|intro/|favicon.ico|icon.png|apple-icon.png|hero.svg|hero-3d.svg).*)"],
 };
