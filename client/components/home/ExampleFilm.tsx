@@ -6,11 +6,11 @@ import { ArrowRight, Play, X } from "lucide-react";
 import { cn } from "@/components/ui";
 
 /**
- * Films on the home page: the XLaunch intro (a static file in public/intro)
- * first, then finished films made with XLaunch, shipped with the server
- * (server/assets/motion-showcase/films.json). The first is the hero's
- * looping film; all of them are "Watch" chips under the composer. Playing
- * one costs nothing and needs no sign-in.
+ * Films on the home page: a launch film for PayPal and the XLaunch intro
+ * (static files in public/intro), then finished films made with XLaunch,
+ * shipped with the server (server/assets/motion-showcase/films.json). The
+ * first is the hero's looping film; all of them are "Watch" chips under the
+ * composer. Playing one costs nothing and needs no sign-in.
  */
 export type ExampleFilm = {
   id: string;
@@ -18,13 +18,21 @@ export type ExampleFilm = {
   site: string;
   title: string;
   note: string;
-  /** Its own files and caption (the intro); without them, a showcase film from the API. */
+  /** Its own files (and caption); without them, a showcase film from the API. */
   src?: string;
   poster?: string;
   caption?: string;
 };
 
 export const EXAMPLE_FILMS: ExampleFilm[] = [
+  {
+    id: "paypal",
+    site: "paypal.com",
+    title: "PayPal",
+    note: "A day of paying with PayPal: checkout, splitting lunch, getting paid",
+    src: "/intro/paypal-day.mp4",
+    poster: "/intro/paypal-day.jpg",
+  },
   {
     id: "intro",
     site: "XLaunch in 30 s",
