@@ -9,6 +9,7 @@ Built for the [PayPal AI Hackathon](https://paypalaihackathon.devpost.com/). Pay
 no real money moves.
 
 - Live demo: https://xlaunch-paypal.vercel.app (API: https://paypal-api.xlaunch.pro)
+- Video: https://youtu.be/E4zNi4C2Kzc
 - Sandbox test buyer for the demo: in the Devpost submission's testing instructions
 
 ## How PayPal is used
